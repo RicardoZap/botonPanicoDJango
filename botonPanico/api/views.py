@@ -30,8 +30,7 @@ API_KEY = ""
 #Segunda llave/variable que se le dará valor al llamar el método de boton de panico
 KEY_ALERTA = ""
 
-
-# Crear un diccionario para almacenar la información de los autobuses
+#json para almacenar la información de los autobuses
 datos_autobuses = {}
 
 # Cuando se recibe un nuevo botón de pánico para un autobús
@@ -43,25 +42,17 @@ def procesar_boton_panico(id_autobus, datos):
     else:
         # Crear una nueva entrada para el autobús
         datos_autobuses[id_autobus] = [datos]
-
-    # Establecer un temporizador para eliminar los datos después de 15 minutos
     Timer(900, eliminar_datos_autobus).start()
-    # Puedes usar una biblioteca como threading o asyncio para esto
 
-# Cuando se desea acceder a los datos de un autobús en particular
 def obtener_datos_autobus(id_autobus):
     if id_autobus in datos_autobuses:
         return datos_autobuses[id_autobus]
     else:
         return None
 
-# Cuando se desea eliminar los datos de un autobús después de 15 minutos
 def eliminar_datos_autobus(id_autobus):
     if id_autobus in datos_autobuses:
         del datos_autobuses[id_autobus]
-
-
-
 
 def startup_event():
     global API_KEY
